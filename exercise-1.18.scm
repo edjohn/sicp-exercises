@@ -1,4 +1,4 @@
-;Exercise 1.17
+;Exercise 1.18
 (define (fast-mult a n)
   (fast-mult-iter 0 a n))
 
