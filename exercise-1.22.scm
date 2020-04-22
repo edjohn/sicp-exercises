@@ -45,9 +45,6 @@
   (cond ((= count 0)
 	 (report-prime (- (runtime) start-time)))
 	((prime? n)
-	 (newline)
-	 (display n)
-	 (newline)
 	 (search-for-primes-iter (+ n 2) (- count 1) start-time))
 	(else
 	  (search-for-primes-iter (+ n 2) count start-time))))
