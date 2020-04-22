@@ -1,4 +1,11 @@
 ;Exercise 1.22
+;Test cases in the book are computed too fast with modern computers, used these test cases instead:
+;n=10*10^9, .100 seconds
+;n=10*10^10, .380 seconds
+;n=10*10^11, 1.14 seconds
+;n=10*10^12, 3.52 seconds
+;Results consistent with predicted order of growth O(sqrt(n))
+
 (define (timed-prime-test n)
   (newline)
   (display n)
@@ -26,34 +33,21 @@
 (define (divides? a b)
   (= (remainder b a) 0))
 
-;Test cases in the book are computed too fast with modern computers, used these test cases instead:
-;n=10*10^9, .11 seconds
-;n=10*10^10, .39 seconds
-;n=10*10^11, 1.10 seconds
-;n=10*10^12, 3.32 seconds
-;Results consistent with predicted order of growth O(sqrt(n))
-(define (search-for-primes n range)
+(define (search-for-primes n count)
   (newline)
   (display n)
   (cond ((even? n)
-	 (search-for-primes-iter (+ n 1) range 0 (runtime)))
+	 (search-for-primes-iter (+ n 1) count (runtime)))
 	(else
-	  (search-for-primes-iter n range 0 (runtime)))))
+	  (search-for-primes-iter n count (runtime)))))
 
-(define (search-for-primes-iter n count total-time start-time)
+(define (search-for-primes-iter n count start-time)
   (cond ((= count 0)
-	 (report-prime total-time))
+	 (report-prime (- (runtime) start-time)))
 	((prime? n)
-	 (search-for-primes-iter 
-	   (+ n 2) 
-	   (- count 1) 
-	   (+ total-time (- (runtime) start-time)) 
-	   (runtime)))
+	 (newline)
+	 (display n)
+	 (newline)
+	 (search-for-primes-iter (+ n 2) (- count 1) start-time))
 	(else
-	  (search-for-primes-iter
-	    (+ n 2)
-	    count
-	    (+ total-time (- (runtime) start-time))
-	    (runtime)))))
-	
-
+	  (search-for-primes-iter (+ n 2) count start-time))))
